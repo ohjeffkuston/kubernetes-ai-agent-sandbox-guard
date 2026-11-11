@@ -1,0 +1,5 @@
+allowed_runtime_classes: [gvisor, kata]
+max_runtime_seconds: 900
+max_ttl_seconds: 300
+max_pids: 128
+

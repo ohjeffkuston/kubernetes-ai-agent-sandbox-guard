@@ -1,0 +1,23 @@
+workload:
+  apiVersion: batch/v1
+  kind: Job
+  metadata: {name: unsafe-agent}
+  spec:
+    activeDeadlineSeconds: 7200
+    template:
+      spec:
+        hostNetwork: true
+        containers:
+          - name: runner
+            image: example/runner:latest
+            securityContext: {privileged: true}
+            env:
+              - name: TOKEN
+                valueFrom: {secretKeyRef: {name: prod, key: token}}
+sandbox:
+  pids_max: 4096
+  secrets_exposed: true
+  provenance_verified: false
+  egress: {default_deny: false, metadata_api_blocked: false}
+operations: {human_approval_required: false}
+
